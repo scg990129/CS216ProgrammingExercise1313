@@ -4,8 +4,6 @@
 
 #include <sstream>
 #include "matrixType.h"
-#include <iostream>
-#include <vector>
 
 matrixType::~matrixType() {
     for(int** ptrRow = matrix; ptrRow < matrix + this->getRowM(); ptrRow++){
@@ -51,3 +49,51 @@ std::ostream &operator<<(std::ostream &os, const matrixType &type) {
     return os;
 }
 
+matrixType operator+(const matrixType &type1, const matrixType &type2){
+    if (type1.getRowM() != type2.getRowM() || type1.getColN() != type2.getColN()){
+        throw std::invalid_argument("Matrix dimensions do not match");
+    }
+    matrixType result(type1.getRowM(), type1.getColN());
+    for(int row = 0; row < type1.getRowM(); row++){
+        for(int col = 0; col < type1.getColN(); col++){
+            result.matrix[row][col] = type1.matrix[row][col] + type2.matrix[row][col];
+        }
+    }
+    return result;
+}
+
+matrixType operator-(const matrixType &type1, const matrixType &type2){
+    if (type1.getRowM() != type2.getRowM() || type1.getColN() != type2.getColN()){
+        throw std::invalid_argument("Matrix dimensions do not match");
+    }
+    matrixType result(type1.getRowM(), type1.getColN());
+    for(int row = 0; row < type1.getRowM(); row++){
+        for(int col = 0; col < type1.getColN(); col++){
+            result.matrix[row][col] = type1.matrix[row][col] - type2.matrix[row][col];
+        }
+    }
+    return result;
+}
+
+matrixType operator*(const matrixType &type1, const matrixType &type2){
+    if (type1.getColN() != type2.getRowM()){
+        throw std::invalid_argument("Matrix dimensions do not match");
+    }
+    matrixType result(type1.getRowM(), type2.getColN()); //
+    for(int row = 0; row < type1.getRowM(); row++){
+        for(int col = 0; col < type2.getColN(); col++){
+            result.matrix[row][col] = 0;
+            for(int i = 0; i < type1.getColN(); i++){
+                result.matrix[row][col] += type1.matrix[row][i] * type2.matrix[i][col];
+//                printf("[%i][%i] =+ type1.matrix[%i][%i] * type2.matrix[%i][%i];\n",
+//                       row, col, row, i, i, col
+//                       );
+            }
+
+//            for(int i = 0; i < type1.getColN(); i++){
+//                result.matrix[row][col] += type1.matrix[row][i] * type2.matrix[i][col];
+//            }
+        }
+    }
+    return result;
+}

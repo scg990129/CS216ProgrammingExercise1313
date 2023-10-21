@@ -6,7 +6,6 @@
 #define CS216PROGRAMMINGEXERCISE1313_MATRIXTYPE_H
 
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
