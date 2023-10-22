@@ -39,6 +39,10 @@ int matrixType::getColN() const{
     return this->colN;
 }
 
+//matrixType matrixType::getThis() const{
+//    return *this;
+//}
+
 std::ostream &operator<<(std::ostream &os, const matrixType &type) {
     for(int** ptrRow = type.matrix; ptrRow < type.matrix + type.getRowM(); ptrRow++){
         for(int* ptrCol = *ptrRow; ptrCol < *ptrRow + type.getColN(); ptrCol++){

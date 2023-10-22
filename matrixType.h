@@ -20,6 +20,7 @@ public:
 
     int getRowM() const;
     int getColN() const;
+//    matrixType getThis() const;
 
     friend std::ostream &operator<<(std::ostream &os, const matrixType &type);
 //    friend std::istream &operator>>(std::istream &is, vector<matrixType> type);
